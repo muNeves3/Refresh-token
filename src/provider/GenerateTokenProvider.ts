@@ -9,7 +9,6 @@ class GenerateToken {
             expiresIn: '20s',
           });
       
-
         return token;
     }
 
