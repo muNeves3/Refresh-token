@@ -9,20 +9,23 @@ interface IEditUserRequest {
 
 class EditUserUseCase {
   async execute({ name, username }: IEditUserRequest) {
-    const editedUser = await client.user.update({
-      where: {
-        username,
-      },
-      data: {
-        name,
-      },
-    });
 
-    if (!editedUser) {
-      throw new AppError('User could not be found');
+    try {
+
+      const editedUser = await client.user.update({
+        where: {
+          username,
+        },
+        data: {
+          name,
+        },
+      });
+
+      return editedUser;
+    } catch(e) {
+      throw new AppError('User could not be found', 401);
     }
 
-    return editedUser;
   }
 }
 

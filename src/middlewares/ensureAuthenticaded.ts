@@ -9,7 +9,7 @@ export function ensureAuthenticated(
   const authToken = request.headers.authorization;
 
   if (!authToken) {
-    return response.status(401).json({
+    return response.sendStatus(401).json({
       message: 'Token is missing',
     });
   }
@@ -19,9 +19,9 @@ export function ensureAuthenticated(
   try {
     verify(token, '0493e565-0dcb-4d52-93d0-3dcf749edd5a');
 
-    return next();
+    next();
   } catch (e) {
-    return response.status(401).json({
+    return response.sendStatus(401).json({
       message: 'Token invalid',
     });
   }
